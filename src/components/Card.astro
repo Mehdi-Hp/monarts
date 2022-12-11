@@ -1,62 +1,174 @@
 ---
-export interface Props {
-	title: string;
-	body: string;
-	href: string;
+import type { HTMLAttributes } from 'astro/types';
+
+export namespace CardNS {
+	export enum PunchPosition {
+		X = 'x',
+		Y = 'y'
+	}
+	export enum PunchSize {
+		SM = 'sm',
+		MD = 'md',
+		LG = 'lg'
+	}
+	export enum Roundness {
+		SM = 'sm',
+		MD = 'md',
+		LG = 'lg',
+		XL = 'xl',
+		XXL = 'xxl',
+		XXXL = 'xxxl',
+		FULL = 'full'
+	}
+	export enum Spacing {
+		SM = 'sm',
+		MD = 'md',
+		LG = 'lg',
+		NONE = 'none'
+	}
+	export enum Circular {
+		HALF = 'half',
+		FULL = 'full'
+	}
 }
 
-const { href, title, body } = Astro.props;
+export interface Props extends HTMLAttributes<'div'> {
+	children: any;
+	punch?: [
+		(CardNS.PunchPosition.X | CardNS.PunchPosition.Y),
+		(CardNS.PunchSize.SM | CardNS.PunchSize.MD | CardNS.PunchSize.LG)
+	];
+	roundness: CardNS.Roundness;
+	circular?: CardNS.Circular;
+	spacing: CardNS.Spacing;
+	'content-class'?: string;
+}
+
+const { punch, roundness, circular, spacing, ...attributes } = Astro.props;
 ---
 
-<li class="link-card">
-	<a href={href}>
-		<h2>
-			{title}
-			<span>&rarr;</span>
-		</h2>
-		<p>
-			{body}
-		</p>
-	</a>
-</li>
+<div
+	class:list={[
+		'card',
+		`punchPosition--${punch?.[0]}`,
+		`punchSize--${punch?.[1]}`,
+		`roundness--${roundness}`,
+		`spacing--${spacing}`,
+		`circular--${circular}`,
+		attributes.class,
+		attributes['class:list'],
+		{ isPunched: !!punch }
+	]}
+	{...attributes}
+>
+	<div class:list={[
+		'content',
+		attributes['content-class'],
+		attributes['content-class:list'],
+	]}>
+		<slot />
+	</div>
+</div>
+
 <style>
-	.link-card {
-		list-style: none;
-		display: flex;
-		padding: 0.15rem;
-		background-color: white;
-		background-image: var(--accent-gradient);
-		background-size: 400%;
-		border-radius: 0.5rem;
-		background-position: 100%;
-		transition: background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-		box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+.card {
+	--card-punchSize: 0px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	filter: drop-shadow(1x 0.5x 0rem var(--aqua-dark));
+	overflow: hidden;
+
+	&:not(.isPunched) {
+		background-color: var(--aqua-light);
+	}
+	&.isPunched {
+		background:
+			radial-gradient(circle var(--card-punchSize) at var(--card-punchPositionFirst) center, transparent var(--card-punchSize), var(--aqua-light) 0) var(--card-punchPositionFirst) center,
+			radial-gradient(circle var(--card-punchSize) at var(--card-punchPositionSecond) center, transparent var(--card-punchSize), var(--aqua-light) 0) var(--card-punchPositionSecond) center;
+		background-size: var(--card-BackgroundSize);
+		background-repeat: no-repeat;
+	}
+	&.punchSize--sm {
+		--card-punchSize: 1x;
+	}
+	&.punchSize--md {
+		--card-punchSize: 3x;
+	}
+	&.punchSize--lg {
+		--card-punchSize: 5x;
 	}
 
-	.link-card > a {
-		width: 100%;
-		text-decoration: none;
-		line-height: 1.4;
-		padding: 1rem 1.3rem;
-		border-radius: 0.35rem;
-		color: #111;
-		background-color: white;
-		opacity: 0.8;
+	&.circular--full {
+
 	}
-	h2 {
-		margin: 0;
-		font-size: 1.25rem;
-		transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+	&.circular--half {
+		background: linear-gradient(0deg, transparent 50%, var(--aqua-light) 50%);
 	}
-	p {
-		margin-top: 0.5rem;
-		margin-bottom: 0;
-		color: #444;
+
+	&.punchPosition--x {
+		--card-punchPositionFirst: left;
+		--card-punchPositionSecond: right;
+		--card-BackgroundSize: calc(100% - var(--card-punchSize)) 100%;
 	}
-	.link-card:is(:hover, :focus-within) {
-		background-position: 0;
+	&.punchPosition--y {
+		--card-punchPositionFirst: top;
+		--card-punchPositionSecond: bottom;
+		--card-BackgroundSize: 100% calc(100% - var(--card-punchSize));
 	}
-	.link-card:is(:hover, :focus-within) h2 {
-		color: rgb(var(--accent));
+
+	&.spacing--sm {
+		padding: calc(1x + var(--card-punchSize));
 	}
+	&.spacing--md {
+		padding: calc(2x + var(--card-punchSize));
+	}
+	&.spacing--lg {
+		padding: calc(4x + var(--card-punchSize));
+	}
+
+	&.roundness--sm {
+		border-radius: 0.5x;
+	}
+	&.roundness--md {
+		border-radius: 1x;
+	}
+	&.roundness--lg {
+		border-radius: 2x;
+	}
+	&.roundness--xl {
+		border-radius: 4x;
+	}
+	&.roundness--xxl {
+		border-radius: 6x;
+	}
+	&.roundness--xxxl {
+		border-radius: 9x;
+	}
+	&.roundness--full {
+		border-radius: 100x;
+	}
+}
+
+.background {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.backgroundReal {
+	fill: var(--aqua-light);
+}
+
+.content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	align-items: center;
+	z-index: 2;
+}
 </style>

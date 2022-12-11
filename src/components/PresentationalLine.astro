@@ -1,0 +1,40 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+export namespace PresentationalLineNS {
+	export enum Direction {
+		H = 'horizontal',
+		V = 'vertical'
+	}
+}
+
+export interface Props extends HTMLAttributes<'div'> {
+	direction: PresentationalLineNS.Direction;
+}
+const { direction, ...attributes } = Astro.props;
+---
+
+<div
+	class:list={[
+		'presentationalLine',
+		`direction--${direction}`,
+		attributes.class,
+		attributes['class:list']
+	]}
+	{...attributes}
+/>
+
+<style>
+.presentationalLine {
+	display: block;
+	background-color: var(--aqua-dark);
+	border-radius: 0.5x;
+
+	&.direction--horizontal {
+		height: 1.5x;
+	}
+	&.direction--vertical {
+		width: 1.5x;
+	}
+}
+</style>

@@ -1,0 +1,32 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+
+export interface Props extends HTMLAttributes<'div'> {
+  name: string;
+}
+
+const { name, ...attributes } = Astro.props;
+const { default: innerHTML } = await import(`../assets/images/${name}.svg?raw`);
+---
+
+<div
+	class:list={[
+		'icon',
+		attributes.class,
+		attributes['class:list']
+	]}
+	aria-hidden
+	{...attributes}
+>
+	<Fragment set:html="innerHTML" />
+</div>
+
+<style>
+.icon {
+	color: var(--aqua-dark);
+}
+svg {
+	display: flex;
+}
+</style>

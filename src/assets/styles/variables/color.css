@@ -1,0 +1,7 @@
+:root {
+	--white: hsl(0, 0%, 98%);
+	--black: hsl(0, 100%, 98%);
+	--aqua-bright: hsl(203deg 40% 93%);
+	--aqua-light: hsl(245, 86%, 92%);
+	--aqua-dark: hsl(228, 82%, 51%);
+}

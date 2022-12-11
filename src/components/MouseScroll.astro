@@ -1,0 +1,47 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+
+export interface Props extends HTMLAttributes<'div'> {
+}
+
+const { ...attributes } = Astro.props;
+---
+
+<div class:list={['mouseScroll', attributes.class]} {...attributes} />
+
+<style>
+.mouseScroll {
+	position: relative;
+}
+.mouseScroll {
+	width: 30px;
+	height: 50px;
+	border: 2px solid var(--aqua-dark);
+	border-radius: 25px;
+	background: var(--aqua-light);
+}
+.mouseScroll:before {
+	content: '';
+	position: absolute;
+	width: 8px;
+	height: 8px;
+	background: var(--aqua-dark);
+	margin-left: -4px;
+	left: 50%;
+	top: 8px;
+	border-radius: 4px;
+	animation-duration: 1.5s;
+	animation-iteration-count: infinite;
+	animation-name: scroll;
+}
+@keyframes scroll {
+	0% {
+		opacity: 1
+	}
+	100% {
+		opacity: 0;
+		transform: translateY(26px)
+	}
+}
+</style>

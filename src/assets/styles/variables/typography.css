@@ -1,0 +1,4 @@
+:root {
+	--text-font-family-sans: 'Plain', system-ui;
+	--text-font-family-mono: 'Cartograph', 'SF Mono', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace;
+}

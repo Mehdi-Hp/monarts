@@ -1,0 +1,20 @@
+{
+	"xo.validate": [
+		"javascript",
+		"typescript",
+		"astro"
+	],
+	"cSpell.words": [
+		"astro",
+		"cssnano",
+		"flexify",
+		"Safavi",
+		"ultrathin",
+		"unitlist",
+		"unocss",
+		"visibilitychange"
+	],
+	"cSpell.enableFiletypes": [
+		"astro"
+	]
+}

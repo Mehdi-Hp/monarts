@@ -1,0 +1,55 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+export interface Props extends HTMLAttributes<'div'> {
+	children: any;
+	title: string;
+	'content-class'?: string;
+}
+
+const { title, ...attributes } = Astro.props;
+const titleSlug = title.toLowerCase().replace(/ /g, '-');
+---
+
+<section
+	class:list={[
+		'scene',
+		attributes.class,
+		attributes['class:list'],
+	]}
+	aria-labelledby={`#${titleSlug}`}
+	{...attributes}
+>
+	<h2 id={titleSlug} sr-only>
+		{ title }
+	</h2>
+	<div class:list={[
+		'content',
+		attributes['content-class']
+	]}>
+		<slot />
+	</div>
+</section>
+
+<script>
+</script>
+
+<style>
+.scene {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	width: 100%;
+	scroll-snap-align: start;
+}
+
+.content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+}
+</style>

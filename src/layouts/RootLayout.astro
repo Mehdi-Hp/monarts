@@ -1,0 +1,149 @@
+---
+
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="stylesheet" href="./src/assets/styles/global.css" />
+		<meta name="generator" content={Astro.generator} />
+		<title>monarts :: Personal Portfolio</title>
+	</head>
+	<body>
+		<div class="background" data-name="background">
+			<div class="backgroundLineHolder vertical" data-name="backgroundVertical">
+				<div class="backgroundLine vertical" data-name="backgroundLineVertical" />
+			</div>
+			<div class="backgroundLineHolder horizontal" data-name="backgroundHorizontal">
+				<div class="backgroundLine horizontal" data-name="backgroundLineHorizontal" />
+			</div>
+		</div>
+		<div class="baseLayout">
+			<slot />
+		</div>
+	</body>
+</html>
+
+<script>
+import { animate, stagger } from 'motion';
+
+
+const backgroundElement = document.querySelector('[data-name=background]');
+const backgroundVertical = document.querySelector('[data-name=backgroundVertical]');
+const backgroundHorizontal = document.querySelector('[data-name=backgroundHorizontal]');
+const backgroundLineVertical = document.querySelector('[data-name=backgroundLineVertical]');
+const backgroundLineHorizontal = document.querySelector('[data-name=backgroundLineHorizontal]');
+let alreadyDrew = false;
+
+if (document.visibilityState === 'visible' && !alreadyDrew) {
+	drawBackgroundLines();
+}
+
+document.addEventListener('visibilitychange', () => {
+	if (document.visibilityState === 'visible' && !alreadyDrew) {
+		drawBackgroundLines();
+	}
+});
+
+function drawBackgroundLines() {
+	drawBackgroundVerticalLines();
+	drawBackgroundHorizontalLines();
+	alreadyDrew = true;
+}
+
+function drawBackgroundVerticalLines() {
+	const totalWidth = backgroundElement.clientWidth;
+	const linesCount = Math.ceil(totalWidth / 120);
+	for (let index = 0; index < linesCount; index++) {
+		const lineElement = backgroundLineVertical.cloneNode();
+		backgroundVertical.append(lineElement);
+	}
+
+	animate(
+		'[data-name=backgroundLineVertical]',
+		{
+			scaleY: [0, 1],
+			backgroundColor: ['var(--aqua-dark)', 'var(--aqua-bright)']
+		},
+		{
+			delay: stagger(0.05, { from: 'center' }),
+			duration: 0.8,
+			easing: 'ease-out'
+		}
+	);
+}
+
+function drawBackgroundHorizontalLines() {
+	const totalHeight = backgroundElement.clientHeight;
+	const linesCount = Math.ceil(totalHeight / 120);
+	for (let index = 0; index < linesCount; index++) {
+		const lineElement = backgroundLineHorizontal.cloneNode();
+		backgroundHorizontal.append(lineElement);
+	}
+
+	animate(
+		'[data-name=backgroundLineHorizontal]',
+		{
+			scaleX: [0, 1],
+			backgroundColor: ['var(--aqua-dark)', 'var(--aqua-bright)']
+		},
+		{
+			delay: stagger(0.05, { from: 'center' }),
+			duration: 0.8,
+			easing: 'ease-out'
+		}
+	);
+}
+</script>
+
+<style lang="postcss">
+.background {
+	position: fixed;
+	height: 100vh;
+	width: 100vw;
+	inset: 0;
+	background: var(--white);
+	z-index: 1;
+}
+
+.backgroundLineHolder {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	justify-content: space-around;
+	&.horizontal {
+		flex-direction: row;
+	}
+	&.horizontal {
+		flex-direction: column;
+	}
+}
+
+.backgroundLine {
+	background-color: var(--aqua-bright);
+	&.vertical {
+		width: 1px;
+		transform-origin: top;
+		transform: scaleY(0);
+	}
+	&.horizontal {
+		height: 1px;
+		transform-origin: left;
+		transform: scaleX(0);
+	}
+}
+
+.baseLayout {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	position: relative;
+	z-index: 2;
+	width: 1800px;
+	max-width: 100%;
+	margin: 0 auto;
+}
+</style>

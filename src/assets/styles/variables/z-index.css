@@ -1,0 +1,10 @@
+:root {
+	--zIndex-underground: -3;
+	--zIndex-sea: 0;
+	--zIndex-land: 3;
+	--zIndex-hill: 6;
+	--zIndex-mountain: 9;
+	--zIndex-cloud: 12;
+	--zIndex-sky: 15;
+	--zIndex-sun: 18;
+}

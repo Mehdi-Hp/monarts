@@ -1,0 +1,5 @@
+:root {
+	--ring-thin: 0 0 0 1px;
+	--ring-normal: 0 0 0 2px;
+	--ring-thick: 0 0 0 4px;
+}

@@ -1,0 +1,43 @@
+@import "minireset.css";
+@import './font-loader.css';
+
+@import './variables/animation.css';
+@import './variables/border.css';
+@import './variables/color.css';
+@import './variables/pop.css';
+@import './variables/ring.css';
+@import './variables/roundness.css';
+@import './variables/stroke.css';
+@import './variables/typography.css';
+@import './variables/z-index.css';
+@import './variables/aspects.css';
+@import './variables/media.css';
+@import './variables/interaction.css';
+
+:root {
+
+}
+
+html {
+	font-synthesis: none;
+	font-family: var(--text-font-family-sans);
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-smoothing: grayscale;
+	scroll-snap-type: y mandatory;
+}
+html, body {
+	width: 100%;
+	height: 100%;
+}
+
+[sr-only] {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}

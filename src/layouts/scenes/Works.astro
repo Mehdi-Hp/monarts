@@ -1,0 +1,112 @@
+---
+import SceneLayout from '#layouts/SceneLayout.astro';
+import Card, { CardNS } from '#components/Card.astro';
+import Illustration from '#components/Illustration.astro';
+import PresentationalLine, { PresentationalLineNS } from '#components/PresentationalLine.astro';
+---
+
+<SceneLayout
+	title="Works"
+	content-class="/h:full"
+	data-name="worksScene"
+	class:list={['/op:0']}
+>
+	<PresentationalLine
+		class="scrollLineTop"
+		direction={PresentationalLineNS.Direction.V}
+		data-name="scrollLine"
+	/>
+	<Card
+		roundness={CardNS.Roundness.FULL}
+		spacing={CardNS.Spacing.MD}
+		circular={CardNS.Circular.FULL}
+		class:list={['/w:52', '/h:52', '/z:land']}
+		content-class:list={['/w:full', '/h:full', '/flex:column']}
+		data-name="titleCard"
+	>
+		<div class:list={['/type:uppercase', '/type:sans-subheader-semibold', '/w:full']}>
+			<span data-name="titleCardLabelTop">Some of my selected works</span>
+		</div>
+		<div class:list={['/flex:row/x:between/y:center', '/w:full', '/grow:1', '/px:2']}>
+			<div class:list={['titleCardDot']} />
+			<div class:list={['/pos:relative', '/w:full', '/h:full', '/flex:row/x:center/y:center']}>
+				<Illustration name="glasses" class="glasses" data-name="titleCardGlasses" />
+			</div>
+			<div class:list={['titleCardDot']} />
+		</div>
+		<div class:list={['/type:mono-subheader-bold', '/w:full']}>
+			<span data-name="titleCardLabelBottom">Graphic design projects</span>
+		</div>
+	</Card>
+	<PresentationalLine
+		class="scrollLineBottom"
+		direction={PresentationalLineNS.Direction.V}
+		data-name="scrollLine"
+	/>
+</SceneLayout>
+
+<script>
+import CircleType from 'circletype';
+import { inView, timeline, spring, stagger } from 'motion';
+
+
+const scene = '[data-name=worksScene]';
+const titleCard = `${scene} [data-name=titleCard]`;
+const titleCardLabelTop = `${scene} [data-name=titleCardLabelTop]`;
+const titleCardLabelBottom = `${scene} [data-name=titleCardLabelBottom]`;
+const titleCardLabelTopCharacters = `${titleCardLabelTop} > div > span`;
+const titleCardLabelBottomCharacters = `${titleCardLabelBottom} > div > span`;
+const titleCardGlasses = `${scene} [data-name=titleCardGlasses]`;
+const scrollLine = `${scene} [data-name=scrollLine]`;
+
+new CircleType(document.querySelector(titleCardLabelTop))
+	.dir(1)
+	.radius(200);
+new CircleType(document.querySelector(titleCardLabelBottom))
+	.dir(-1)
+	.radius(200);
+
+inView(titleCard, () => {
+	timeline([
+		[scene, { opacity: [0, 1] }, { at: 0, duration: 0.1 }],
+
+		[titleCard, { opacity: [0, 1], scale: [0.5, 1], x: [-500, 0], rotate: [-360, 360] }, { at: 0, duration: 1, easing: spring({ velocity: 13, damping: 14 }) }],
+		[scrollLine, { opacity: [0, 1], scaleY: [0, 1] }, { at: 0, duration: 0.5, easing: spring() }],
+
+		[titleCardGlasses, { scale: [0, 1], x: [-500, 0], rotate: [-360, 360] }, { at: 0.15, duration: 1, easing: spring({ damping: 14 }) }],
+
+		[titleCardLabelTopCharacters, { opacity: [0, 1] }, { at: 1, duration: 1, easing: 'ease-out', delay: stagger(0.05) }],
+		[titleCardLabelBottomCharacters, { opacity: [0, 1] }, { at: 1, duration: 1, easing: 'ease-out', delay: stagger(0.05) }]
+	], {
+		delay: 0.5
+	});
+});
+</script>
+
+<style>
+.titleCardDot {
+	width: 1x;
+	height: 1x;
+	border-radius: 50%;
+	background-color: var(--aqua-dark);
+}
+.glasses {
+	position: absolute;
+	width: 32x;
+	top: -5x;
+}
+.scrollLineTop {
+	width: 0.5x;
+	height: 30x;
+	transform-origin: center;
+	position: relative;
+	bottom: 8x;
+}
+.scrollLineBottom {
+	width: 0.5x;
+	height: 30x;
+	transform-origin: center;
+	position: relative;
+	top: 8x;
+}
+</style>

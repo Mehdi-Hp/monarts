@@ -1,0 +1,193 @@
+---
+import SceneLayout from '#layouts/SceneLayout.astro';
+import Card, { CardNS } from '#components/Card.astro';
+import Illustration from '#components/Illustration.astro';
+import PresentationalLine, { PresentationalLineNS } from '#components/PresentationalLine.astro';
+---
+
+<SceneLayout
+	title="Introduction"
+	class:list={['/op:0']}
+	content-class="/h:full"
+	data-name="aboutScene"
+>
+	<Card
+		roundness={CardNS.Roundness.FULL}
+		spacing={CardNS.Spacing.LG}
+		circular={CardNS.Circular.HALF}
+		class:list={['/w:35', '/h:40', '/mb:-14']}
+		data-name="titleCard"
+	>
+		<div
+			class:list={[
+				'/type:sans-header-normal',
+				'/type:uppercase',
+				'/w:30',
+				'/h:15'
+			]}
+		>
+			<span class="titleCardLabel" data-name="titleCardLabel">About Me</span>
+		</div>
+		<Illustration data-name="titleCardBlobs" name="blob-1" class:list={['blob', 'blob1']} />
+		<Illustration data-name="titleCardBlobs" name="blob-2" class:list={['blob', 'blob2']} />
+		<Illustration data-name="titleCardBlobs" name="blob-3" class:list={['blob', 'blob3']} />
+	</Card>
+	<div class:list={['/flex:column/x:center/y:end', '/gap:4']}>
+		<Card
+			roundness={CardNS.Roundness.MD}
+			spacing={CardNS.Spacing.MD}
+			punch={[CardNS.PunchPosition.X, CardNS.PunchSize.MD]}
+			class:list={['/h:14']}
+			content-class:list={['/flex:row', '/gap:3']}
+			data-name="locationCard"
+		>
+			<Illustration name="pin" class:list={['/w:8']} />
+			<div
+				class:list={[
+					'/flex:column',
+					'/gap:1'
+				]}
+			>
+				<span class:list={['/type:uppercase', '/type:sans-subheader-semibold']}>I am based in</span>
+				<span class:list={['/type:uppercase', '/type:sans-subheader-light']}>Tehran, Iran</span>
+			</div>
+		</Card>
+		<div class:list={['/flex:row', '/gap:3']}>
+			<div class:list={['/flex:column', '/gap:2']}>
+				<Card
+					roundness={CardNS.Roundness.LG}
+					spacing={CardNS.Spacing.LG}
+					class:list={['/w:26']}
+					content-class:list={['/flex:column', '/gap:3']}
+					data-name="hobbiesCard"
+				>
+					<Illustration name="bowl" class:list={['/w:full']} />
+					<span class:list={['/type:mono-subheader-medium']}>Hobbies & leisures</span>
+				</Card>
+				<Card
+					roundness={CardNS.Roundness.MD}
+					spacing={CardNS.Spacing.MD}
+					class:list={['/w:26']}
+					data-name="hobbyCard"
+				>
+					<span class:list={['/type:uppercase', '/type:mono-subheader-medium']}>To Read</span>
+				</Card>
+				<Card
+					roundness={CardNS.Roundness.MD}
+					spacing={CardNS.Spacing.MD}
+					class:list={['/w:26']}
+					data-name="hobbyCard"
+				>
+					<span class:list={['/type:uppercase', '/type:mono-subheader-medium']}>To Doodle</span>
+				</Card>
+				<Card
+					roundness={CardNS.Roundness.MD}
+					spacing={CardNS.Spacing.MD}
+					class:list={['/w:26']}
+					data-name="hobbyCard"
+				>
+					<span class:list={['/type:uppercase', '/type:mono-subheader-medium']}>Movies</span>
+				</Card>
+			</div>
+			<div class:list={['/flex:column/x:end', '/gap:2']}>
+				<Illustration name="moon" class:list={['/w:8']}  data-name="moonIllustration" />
+				<PresentationalLine
+					direction={PresentationalLineNS.Direction.H}
+					class:list={['/w:15']}
+					data-name="catCardLine"
+				/>
+				<Card
+					roundness={CardNS.Roundness.MD}
+					spacing={CardNS.Spacing.SM}
+					class:list={['/w:full']}
+					content-class:list={['/flex:row', '/gap:1', '/px:2']}
+					data-name="catCard"
+				>
+					<Illustration name="cat" class:list={['/w:8']} />
+					<span class:list={['/type:lowercase', '/type:mono-header-medium']}>I like cats</span>
+				</Card>
+				<p
+					class:list={['/type:sans-supertitle-medium', '/w:42', '/flex:column', '/gap:0.5']}
+					data-name="selfEducated"
+				>
+					<span>I AM A</span>
+					<span>SELF</span>
+					<span>EDUCATED</span>
+					<span>GRAPHIC</span>
+					<span>DESIGNER</span>
+				</p>
+			</div>
+		</div>
+	</div>
+</SceneLayout>
+
+<script>
+import CircleType from 'circletype';
+import { inView, timeline, scroll, animate, spring, stagger } from 'motion';
+
+
+const scene = '[data-name=aboutScene]';
+const titleCard = `${scene} [data-name=titleCard]`;
+const titleCardLabel = `${scene} [data-name=titleCardLabel]`;
+const titleCardLabelCharacters = `${titleCardLabel} > div > span`;
+const titleCardBlobs = '[data-name=titleCardBlobs]';
+const locationCard = `${scene} [data-name=locationCard]`;
+const moonIllustration = `${scene} [data-name=moonIllustration]`;
+const catCard = `${scene} [data-name=catCard]`;
+const catCardLine = `${scene} [data-name=catCardLine]`;
+const hobbiesCard = `${scene} [data-name=hobbiesCard]`;
+const hobbyCard = `${scene} [data-name=hobbyCard]`;
+const selfEducated = `${scene} [data-name=selfEducated] span`;
+
+const titleCardCircularType = new CircleType(document.querySelector(titleCardLabel))
+	.dir(1)
+	.radius(140);
+
+inView(titleCardLabelCharacters, () => {
+	timeline([
+		[scene, { opacity: [0, 1] }, { at: 0, duration: 0.1 }],
+
+		[titleCard, { opacity: [0, 1], scale: [0.5, 1], y: [400, 200], rotate: [-180, 0] }, { at: 0, duration: 1, easing: spring({ damping: 15 }) }],
+		[titleCardLabelCharacters, { opacity: [0, 1] }, { at: 0.5, duration: 1, easing: 'ease-out', delay: stagger(0.1) }],
+		[titleCardBlobs, { opacity: [0, 1], scale: [0, 1] }, { at: 0.75, duration: 0.5, easing: spring(), delay: stagger(0.1) }],
+		[titleCard, { y: [200, 0] }, { at: 2, duration: 1, easing: spring({ damping: 15 }) }],
+
+		[locationCard, { opacity: [0, 1], y: [-100, 0], x: [100, -60] }, { at: 2, duration: 1, easing: spring({ damping: 15 }) }],
+		[catCard, { opacity: [0, 1], y: [-150, -130], x: [-200, 10] }, { at: 2.2, duration: 1, easing: spring({ damping: 15 }) }],
+		[catCardLine, { opacity: [0, 1], y:[-40, -130], x: [-100, 10], scaleX: [0, 1] }, { at: 2.1, duration: 1, easing: spring({ damping: 15 }) }],
+		[moonIllustration, { opacity: [0, 1], y:[140, -140], x: [100, -10], scaleX: [0, 1], rotate: [0, 360] }, { at: 2.1, duration: 1, easing: spring({ damping: 15 }) }],
+
+		[hobbiesCard, { opacity: [0, 1], y: [-100, -10], x: [-100, 20] }, { at: 2.3, duration: 1, easing: spring({ damping: 15 }) }],
+		[hobbyCard, { opacity: [0, 1], y: [-100, -10], x: [-100, 20] }, { at: 2.4, duration: 1, easing: spring() }],
+
+		[selfEducated, { opacity: [0, 1], y: [-50, -130], x: [30, 30], scale: [0.8, 1] }, { at: 2.2, duration: 1, easing: spring(), delay: stagger(0.1) }],
+	], {
+		delay: 0.5
+	});
+});
+</script>
+
+<style>
+.titleCardLabel {
+	position: relative;
+	top: calc((50% + 32px) * -1);
+}
+
+.blob {
+	position: absolute;
+	width: 6x;
+	height: 6x;
+}
+
+.blob1 {
+	top: -4x;
+}
+.blob2 {
+	top: 0x;
+	left: 6x;
+}
+.blob3 {
+	top: -0.5x;
+	right: 6x;
+}
+</style>
