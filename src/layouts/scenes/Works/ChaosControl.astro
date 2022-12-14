@@ -1,0 +1,39 @@
+---
+import SceneLayout from '#layouts/SceneLayout.astro';
+import logo from '#images/Chaos-Control.png';
+import Image1 from '#images/Chaos-Control-1.jpg';
+import Image2 from '#images/Chaos-Control-2.jpg';
+import WorkInfo from '#components/WorkInfo.astro';
+import Slideshow from '#components/Slideshow.astro';
+
+
+const name = 'Chaos Control planner';
+---
+
+<SceneLayout
+	title="Recent work: Chaos Control planner"
+	content-class="/h:full"
+>
+	<WorkInfo
+		logo={logo}
+		name={name}
+		number="04"
+		description="Logo and visual identity for a planning notebook"
+		audience="Those who want to ace their game and be in charge of their success, mainly business women and owners of small businesses."
+		type="Personal Small Business"
+	/>
+</SceneLayout>
+
+<SceneLayout
+	title="Recent work samples: Chaos Control planner"
+	class:list={['/h:auto']}
+>
+	<Slideshow
+		name={name}
+		mode="simple"
+		images={[
+			Image1,
+			Image2
+		]}
+	/>
+</SceneLayout>

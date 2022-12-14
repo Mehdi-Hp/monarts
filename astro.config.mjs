@@ -8,7 +8,9 @@ export default defineConfig({
 	output: 'server',
 	integrations: [
 		unocss(unocssConfig),
-		image()
+		image({
+			serviceEntryPoint: '@astrojs/image/sharp'
+		})
 	],
 	vite: {}
 });

@@ -41,3 +41,7 @@ html, body {
 	white-space: nowrap;
 	width: 1px;
 }
+
+img, picture {
+	flex-shrink: 0;
+}

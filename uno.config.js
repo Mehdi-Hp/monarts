@@ -90,12 +90,20 @@ export const unocssConfig = defineConfig({
 			() => ({ 'width': '100%' })
 		],
 		[
+			/^\/w:auto$/,
+			() => ({ 'width': 'auto' })
+		],
+		[
 			/^\/h:([\d.]+)$/,
 			(match) => ({ 'height': `${match[1] / 2}rem` })
 		],
 		[
 			/^\/h:full$/,
 			() => ({ 'height': '100%' })
+		],
+		[
+			/^\/h:auto$/,
+			() => ({ 'height': 'auto' })
 		],
 		[
 			/^\/color:([\w-]+)$/,
@@ -225,6 +233,24 @@ export const unocssConfig = defineConfig({
 			}
 		],
 		[
+			'/type:mono-body-light', {
+				'font-family': 'var(--text-font-family-mono)',
+				'font-size': '1.3rem',
+				'font-weight': '300',
+				'line-height': '1',
+				'letter-spacing': '-1px'
+			}
+		],
+		[
+			'/type:mono-small-body-light', {
+				'font-family': 'var(--text-font-family-mono)',
+				'font-size': '1.1rem',
+				'font-weight': '300',
+				'line-height': '1',
+				'letter-spacing': '-1px'
+			}
+		],
+		[
 			'/type:sans-supertitle-medium', {
 				'font-family': 'var(--text-font-family-sans)',
 				'font-size': '4rem',
@@ -257,6 +283,14 @@ export const unocssConfig = defineConfig({
 			}
 		],
 		[
+			'/type:sans-header-thin', {
+				'font-family': 'var(--text-font-family-sans)',
+				'font-size': '2.75rem',
+				'font-weight': '200',
+				'line-height': '1'
+			}
+		],
+		[
 			'/type:sans-subheader-semibold', {
 				'font-family': 'var(--text-font-family-sans)',
 				'font-size': '2rem',
@@ -277,6 +311,22 @@ export const unocssConfig = defineConfig({
 				'font-family': 'var(--text-font-family-sans)',
 				'font-size': '1.6rem',
 				'font-weight': '500',
+				'line-height': '1'
+			}
+		],
+		[
+			'/type:sans-body-normal', {
+				'font-family': 'var(--text-font-family-sans)',
+				'font-size': '1.2rem',
+				'font-weight': '400',
+				'line-height': '1'
+			}
+		],
+		[
+			'/type:sans-body-light', {
+				'font-family': 'var(--text-font-family-sans)',
+				'font-size': '1.2rem',
+				'font-weight': '300',
 				'line-height': '1'
 			}
 		]

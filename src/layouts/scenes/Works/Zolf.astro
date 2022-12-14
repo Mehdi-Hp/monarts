@@ -1,0 +1,39 @@
+---
+import SceneLayout from '#layouts/SceneLayout.astro';
+import logo from '#images/Zolf.png';
+import Image1 from '#images/Zolf-1.jpg';
+import Image2 from '#images/Zolf-2.jpg';
+import WorkInfo from '#components/WorkInfo.astro';
+import Slideshow from '#components/Slideshow.astro';
+
+
+const name = 'Zolf app';
+---
+
+<SceneLayout
+	title="Recent work: Zolf app"
+	content-class="/h:full"
+>
+	<WorkInfo
+		logo={logo}
+		name={name}
+		number="06"
+		description="Logo, visual identity and marketing assets for a beauty salon booking application"
+		audience="Women with busy schedules who need to stay on top of their game."
+		type="Freelance Project"
+	/>
+</SceneLayout>
+
+<SceneLayout
+	title="Recent work samples: Zolf app"
+	class:list={['/h:auto']}
+>
+	<Slideshow
+		name={name}
+		mode="simple"
+		images={[
+			Image1,
+			Image2
+		]}
+	/>
+</SceneLayout>

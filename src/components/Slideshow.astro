@@ -1,0 +1,44 @@
+---
+import { Picture } from '@astrojs/image/components';
+import type { HTMLAttributes } from 'astro/types';
+
+
+export interface Props extends HTMLAttributes<'div'> {
+	name: string;
+	images?: string[];
+	mode: 'simple' | 'advanced';
+}
+
+const { images, name, mode } = Astro.props;
+---
+
+<div
+	class:list={['slideshow', `mode--${mode}`]}
+	data-name="slideshow"
+>
+	{mode === 'simple' && images.map((image, index) => (
+		<div class="slide" data-name="slide">
+			<Picture
+				src={image}
+				alt={`${name} - number ${index + 1}`}
+				widths={[1400, 2800, 4200]}
+				sizes="(min-device-pixel-ratio: 1) 1400px, (min-device-pixel-ratio: 2) 2800px, (min-device-pixel-ratio: 3) 4200px"
+				class:list={['/w:full', '/h:full']}
+				style="object-fit: cover; height: 100%; width: 100%;"
+			/>
+		</div>
+	))}
+</div>
+
+<style>
+.slideshow {
+	width: 100vw;
+}
+
+.slide {
+	width: 100vw;
+	height: 100vh;
+	flex-shrink: 0;
+	scroll-snap-align: start;
+}
+</style>

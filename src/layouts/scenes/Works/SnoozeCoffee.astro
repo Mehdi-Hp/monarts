@@ -1,0 +1,39 @@
+---
+import SceneLayout from '#layouts/SceneLayout.astro';
+import logo from '#images/snooze-coffee.png';
+import ImageSnoozeCoffee1 from '#images/Snooze-Coffee-1.jpg';
+import ImageSnoozeCoffee2 from '#images/Snooze-Coffee-2.jpg';
+import WorkInfo from '#components/WorkInfo.astro';
+import Slideshow from '#components/Slideshow.astro';
+
+
+const name = 'Snooze Coffee';
+---
+
+<SceneLayout
+	title="Recent work: Pimple Slayer"
+	content-class="/h:full"
+>
+	<WorkInfo
+		logo={logo}
+		name={name}
+		number="02"
+		description="Logo, visual identity and packaging for a coffee company"
+		audience="People withe the need stay awake and sane"
+		type="Passion Project"
+	/>
+</SceneLayout>
+
+<SceneLayout
+	title="Recent work samples: Snooze Coffee"
+	class:list={['/h:auto']}
+>
+	<Slideshow
+		name={name}
+		mode="simple"
+		images={[
+			ImageSnoozeCoffee1,
+			ImageSnoozeCoffee2
+		]}
+	/>
+</SceneLayout>

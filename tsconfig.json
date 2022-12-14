@@ -1,8 +1,17 @@
 {
 	"extends": "astro/tsconfigs/base",
+	"include": [
+		"**/*.*"
+	],
+	"exclude": [
+		"node_modules"
+	],
 	"compilerOptions": {
 		"baseUrl": ".",
 		"importsNotUsedAsValues": "error",
+		"types": [
+			"@astrojs/image/client"
+		],
 		"paths": {
 			"#pages/*": [
 				"src/pages/*"

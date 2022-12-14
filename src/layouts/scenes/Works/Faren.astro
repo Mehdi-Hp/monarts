@@ -1,0 +1,37 @@
+---
+import SceneLayout from '#layouts/SceneLayout.astro';
+import logo from '#images/Faren.png';
+import Image1 from '#images/Faren-1.jpg';
+import WorkInfo from '#components/WorkInfo.astro';
+import Slideshow from '#components/Slideshow.astro';
+
+
+const name = 'Faren accessories';
+---
+
+<SceneLayout
+	title="Recent work: Faren accessories"
+	content-class="/h:full"
+>
+	<WorkInfo
+		logo={logo}
+		name={name}
+		number="05"
+		description="Logo design for a small accessories online shop"
+		audience="Women aged 18 to 30 who can shop on a budget but want to be fashionable and stylish"
+		type="Freelance Project"
+	/>
+</SceneLayout>
+
+<SceneLayout
+	title="Recent work samples: Faren accessories"
+	class:list={['/h:auto']}
+>
+	<Slideshow
+		name={name}
+		mode="simple"
+		images={[
+			Image1
+		]}
+	/>
+</SceneLayout>
