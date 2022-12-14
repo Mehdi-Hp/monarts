@@ -14,6 +14,7 @@
 		"@astrojs/netlify": "^1.2.2",
 		"astro": "^1.6.15",
 		"circletype": "^2.3.0",
+		"sharp": "^0.31.2",
 		"motion": "^10.15.3",
 		"typewriter-effect": "^2.19.0"
 	},
@@ -36,7 +37,6 @@
 		"postcss-custom-selectors": "^7.0.0",
 		"postcss-preset-env": "^7.8.3",
 		"postcss-unitlist": "^1.0.4",
-		"sharp": "^0.31.2",
 		"unocss": "^0.47.6",
 		"xo": "^0.53.1"
 	}
