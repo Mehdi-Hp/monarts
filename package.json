@@ -11,6 +11,7 @@
 	},
 	"dependencies": {
 		"@astrojs/image": "^0.12.1",
+		"@astrojs/netlify": "^1.2.2",
 		"astro": "^1.6.15",
 		"circletype": "^2.3.0",
 		"motion": "^10.15.3",
