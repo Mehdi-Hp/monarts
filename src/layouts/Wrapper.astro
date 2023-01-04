@@ -1,0 +1,62 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+
+export interface Props extends HTMLAttributes<'div'> {
+	'class:list'?: string[];
+	'content-class:list'?: string[];
+}
+
+const {
+	'class:list': classList = [],
+	'content-class:list': contentClassList = [],
+	...attributes
+} = Astro.props;
+
+---
+
+<div
+	class:list={[
+		'wrapper',
+		...classList
+	]}
+	{...attributes}
+>
+	<div class:list={[
+		'wrapperContent',
+		...contentClassList
+	]}>
+		<slot />
+	</div>
+</div>
+
+<style>
+.wrapper {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	padding: 4x;
+}
+
+.wrapperContent {
+	display: flex;
+	justify-content: center;
+	max-width: 100%;
+
+	@media (--xl-n-above) {
+		width: 180x;
+	}
+
+	@media (--xl) {
+		width: 150x;
+	}
+
+	@media (--xl-n-below) {
+		width: calc(100% - 8x);
+	}
+
+	@media (--sm-n-below) {
+		width: 100%;
+	}
+}
+</style>

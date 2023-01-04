@@ -1,0 +1,92 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+
+type Format = 'avif' | 'webp' | 'png' | 'jpg';
+export interface Props extends HTMLAttributes<'picture'> {
+	'class:list'?: string[];
+	name: string;
+	formats: Format[];
+	alt: string;
+	width: number;
+	height: number;
+	loading?: 'eager' | 'lazy';
+}
+
+const {
+	name,
+	formats,
+	alt,
+	width,
+	height,
+	loading = 'eager',
+	'class:list': classList = [],
+	...attributes
+} = Astro.props;
+
+
+const image = {
+	'1x':  {
+		'avif': formats.includes('avif') && await import(`../assets/images/${name}@1x.avif`),
+		'webp': formats.includes('webp') && await import(`../assets/images/${name}@1x.webp`),
+		'png': formats.includes('png') && await import(`../assets/images/${name}@1x.png`),
+		'jpg': formats.includes('jpg') && await import(`../assets/images/${name}@1x.jpg`)
+	},
+	'2x':  {
+		'avif': formats.includes('avif') && await import(`../assets/images/${name}@2x.avif`),
+		'webp': formats.includes('webp') && await import(`../assets/images/${name}@2x.webp`),
+		'png': formats.includes('png') && await import(`../assets/images/${name}@2x.png`),
+		'jpg': formats.includes('jpg') && await import(`../assets/images/${name}@2x.jpg`)
+	}
+}
+
+const formatToTypeMap = {
+	'avif': 'image/avif',
+	'webp': 'image/webp',
+	'png': 'image/png',
+	'jpg': 'image/jpg'
+}
+---
+
+<picture {...attributes} class="picture">
+	{
+		formats.map((format) => (
+			<source
+				type={formatToTypeMap[format]}
+				srcset={`
+					${image['1x'][format].default} 1x,
+					${image['2x'][format].default} 2x
+				`}
+				width={width}
+				height={height}
+			/>
+		))
+	}
+	<img
+		src={image['1x']['jpg'].default || image['1x']['png'].default}
+		srcset={`
+			${image['1x']['jpg'].default || image['1x']['png'].default} 1x,
+			${image['2x']['jpg'].default || image['2x']['png'].default} 2x
+		`}
+		width={width}
+		height={height}
+		alt={alt}
+		loading={loading}
+		class:list={[
+			'image',
+			...classList
+		]}
+	/>
+</picture>
+
+
+<style>
+.picture {
+	max-width: 100%;
+}
+
+.image {
+	max-width: none;
+	pointer-events: none;
+}
+</style>

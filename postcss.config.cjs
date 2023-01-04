@@ -18,7 +18,6 @@ module.exports = {
 			stage: 0
 		}),
 		require('postcss-custom-media'),
-		require('autoprefixer'),
-		require('cssnano')
+		require('autoprefixer')
 	]
 };

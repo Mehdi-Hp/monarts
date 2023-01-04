@@ -1,0 +1,75 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { nanoid } from 'nanoid/non-secure'
+
+
+export interface Props extends HTMLAttributes<'div'> {
+
+}
+const { ...attributes } = Astro.props;
+
+const instanceId = nanoid() + '_social-links';
+---
+
+<section
+	class:list={[
+		'/flex:column', '/gap:8',
+		attributes['class:list'] || ''
+	]}
+	aria-labelledby={`#${instanceId}`}
+>
+	<h3 id={instanceId} sr-only>
+		Contact information
+	</h3>
+	<div class:list={['/flex:column/x:start', '/gap:2']}>
+		<span class:list={['title']}>
+			Let’s get in touch
+		</span>
+		<a
+			class:list={['link']}
+			href="mailto:monasfv@gmail.com"
+		>
+			monasfv@gmail.com
+		</a>
+	</div>
+	<div class:list={['/flex:column/x:start', '/gap:2']}>
+		<span class:list={['title']}>
+			Find me on social networks
+		</span>
+		<a
+			class:list={['link']}
+			href="https://www.instagram.com/monarts/"
+		>
+			Instagram/monarts
+		</a>
+		<a
+			class:list={['link']}
+			href="https://www.linkedin.com/in/monasfv/"
+		>
+			LinkedIn/mona_safavi
+		</a>
+		<a
+			class:list={['link']}
+			href="https://www.behance.net/monarts"
+		>
+			Behance/monarts
+		</a>
+	</div>
+</section>
+
+<script>
+</script>
+
+<style>
+.title {
+	@apply /type:display-header2-normal;
+
+	color: var(--color-ink-light);
+}
+
+.link {
+	@apply /type:mono-header3-normal;
+
+	color: var(--color-ink-dim);
+}
+</style>

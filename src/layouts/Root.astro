@@ -1,0 +1,90 @@
+---
+import IconsSpirit from '#components/IconsSpirit.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="stylesheet" href="./src/assets/styles/global.css" />
+		<meta name="generator" content={Astro.generator} />
+		<title>monarts :: Personal Portfolio</title>
+	</head>
+	<body>
+		<slot />
+		<IconsSpirit />
+	</body>
+</html>
+
+
+<script>
+import Cursor from 'custom-cursor';
+
+
+new Cursor({
+	count: 2,
+	targets: ['a']
+});
+
+if (!("paintWorklet" in CSS)) {
+	await import('css-paint-polyfill');
+}
+CSS.paintWorklet.addModule(
+	`https://www.unpkg.com/css-houdini-squircle/squircle.min.js`
+);
+</script>
+
+<style is:global>
+:root,
+*:hover,
+*:active {
+	cursor: none;
+}
+
+[data-cursor] {
+	transform-style: preserve-3d;
+	z-index: var(--zIndex-sun);
+
+	@media (--touch) {
+		display: none;
+	}
+}
+
+[data-cursor="0"] {
+	width: 4x;
+	height: 4x;
+	background-color: var(--color-primary-dim);
+	opacity: 0.1;
+	border-radius: 50%;
+	will-change: transform;
+	transition-property: opacity, transform;
+	transition-duration: 0.2s;
+	transition-timing-function: cubic-bezier(0.11, 0.52, 0.47, 1.28);
+}
+
+[data-cursor="1"] {
+	width: 4x;
+	height: 4x;
+	background-color: var(--color-primary-dim);
+	opacity: 1;
+	border-radius: 50%;
+	mix-blend-mode: difference;
+	transition-property: width, height;
+	transition-duration: 0.2s;
+	will-change: width, height, transform;
+	backdrop-filter: blur(4px);
+}
+
+.cursor-hover--a [data-cursor="0"] {
+	opacity: 0;
+}
+
+.cursor-hover--a [data-cursor="1"] {
+	background-color: var(--color-primary-base);
+	opacity: 0.5;
+	width: 2.5x;
+	height: 2.5x;
+}
+</style>

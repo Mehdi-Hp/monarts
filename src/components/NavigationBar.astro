@@ -1,0 +1,108 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import DotDivider from './DotDivider.astro';
+
+
+export interface Props extends HTMLAttributes<'div'> {
+
+}
+const { ...attributes } = Astro.props;
+---
+
+<nav class:list={[
+	'navigationBar',
+	attributes['class:list']
+]}>
+	<ul class:list={['list']}>
+		<li class:list={['item']}>
+			<a href="#my-story" class:list={['link']}>
+				My Story
+			</a>
+		</li>
+		<DotDivider />
+		<li class:list={['item']}>
+			<a href="#recent-works" class:list={['link']}>
+				Recent Works
+			</a>
+		</li>
+		<DotDivider />
+		<li class:list={['item']}>
+			<a href="#socials" class:list={['link']}>
+				Socials
+			</a>
+		</li>
+		<DotDivider />
+		<li class:list={['item']}>
+			<a href="#work-with-me" class:list={['link']}>
+				Let’s Work Together
+			</a>
+		</li>
+	</ul>
+</nav>
+
+<script>
+window.addEventListener('hashchange', (event) => {
+	console.log('hash changed', event);
+});
+</script>
+
+<style lang="postcss">
+.navigationBar {
+	position: fixed;
+	inset-block-start: 3x;
+	inset-inline-start: 50%;
+	transform: translate(-50%, 0%);
+	margin: 0 auto;
+	border-radius: var(--rounded-xxl);
+	border: 1px solid var(--color-primary-light);
+	background-color: hsla(var(--color-ink-bright-raw) / 80%);
+	backdrop-filter: blur(4px) saturate(0.5);
+
+	@media (--sm-n-below) {
+		inset-inline: 0;
+		inset-block-start: 0;
+		transform: none;
+		border-radius: 0;
+		border: none;
+		border-block-end: 1px solid var(--color-primary-light);
+	}
+}
+
+.list {
+	height: 8x;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 1x;
+	padding: 1x 2x;
+	width: 100%;
+
+	@media (--md-n-below) {
+		overflow-x: auto;
+		justify-content: start;
+		scrollbar-width: none;
+
+		&::-webkit-scrollbar {
+			display: none;
+		}
+	}
+}
+
+.item {
+	white-space: nowrap;
+}
+
+.link {
+	@apply /type:mono-body-bold;
+
+	padding: 1.5x 2x;
+	color: var(--color-primary-dim);
+}
+
+.divider {
+	width: 1x;
+	height: 1x;
+	background-color: var(--color-primary-base);
+	border-radius: 1x;
+}
+</style>

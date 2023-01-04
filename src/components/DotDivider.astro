@@ -1,0 +1,31 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+
+export interface Props extends HTMLAttributes<'div'> {
+	'class:list'?: string[];
+}
+
+const {
+	'class:list': classList = [],
+	...attributes
+} = Astro.props;
+---
+
+<div
+	class:list={[
+		'divider',
+		...classList
+	]}
+	{...attributes}
+/>
+
+<style>
+.divider {
+	width: 1x;
+	height: 1x;
+	background-color: var(--color-primary-base);
+	border-radius: 1x;
+	flex-shrink: 0;
+}
+</style>

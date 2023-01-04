@@ -1,16 +1,19 @@
 {
 	"extends": "astro/tsconfigs/base",
 	"include": [
-		"**/*.*"
+		"**/*",
+		"*"
 	],
 	"exclude": [
-		"node_modules"
+		"node_modules",
+		".eslintrc.cjs"
 	],
+	"rootDir": "./src",
 	"compilerOptions": {
 		"baseUrl": ".",
 		"importsNotUsedAsValues": "error",
 		"types": [
-			"@astrojs/image/client"
+			"astro/astro-jsx"
 		],
 		"paths": {
 			"#pages/*": [

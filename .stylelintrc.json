@@ -1,0 +1,78 @@
+{
+	"plugins": [
+		"stylelint-use-logical"
+	],
+	"extends": [
+		"stylelint-config-html/html",
+		"stylelint-config-html/astro",
+		"stylelint-config-standard"
+	],
+	"rules": {
+		"indentation": "tab",
+		"block-no-empty": null,
+		"no-descending-specificity": null,
+		"selector-pseudo-element-no-unknown": [
+			true,
+			{}
+		],
+		"unit-allowed-list": [
+			"x",
+			"px",
+			"vh",
+			"vw",
+			"vmin",
+			"vmin",
+			"vmax",
+			"fr",
+			"deg",
+			"dpcm",
+			"%",
+			"ch",
+			"em",
+			"s"
+		],
+		"unit-no-unknown": [
+			true,
+			{
+				"ignoreUnits": [
+					"x"
+				]
+			}
+		],
+		"csstools/use-logical": true,
+		"custom-property-pattern": null,
+		"custom-media-pattern": null,
+		"selector-class-pattern": null
+	},
+	"overrides": [
+		{
+			"files": [
+				"src/assets/styles/**/*.css"
+			],
+			"rules": {
+				"unit-allowed-list": [
+					"rem",
+					"%",
+					"px",
+					"x",
+					"px",
+					"ch",
+					"s",
+					"%",
+					"deg",
+					"vh",
+					"vw",
+					"vmin",
+					"fr",
+					"vmax"
+				]
+			}
+		},
+		{
+			"files": [
+				"**/*.astro"
+			],
+			"customSyntax": "postcss-html"
+		}
+	]
+}

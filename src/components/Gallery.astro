@@ -1,0 +1,158 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import BetterPicture, { Props as BetterPictureProps } from './BetterPicture.astro';
+
+
+export interface Props extends HTMLAttributes<'div'> {
+	'class:list'?: string[];
+	images: {
+		name: string;
+		alt: string;
+		formats: BetterPictureProps['formats'];
+	}[];
+	layout: 'ltr' | 'rtl';
+}
+
+const {
+	'class:list': classList = [],
+	images,
+	layout,
+	...attributes
+} = Astro.props;
+---
+
+<div
+	class:list={[
+		'gallery',
+		...classList
+	]}
+	{...attributes}
+>
+	{
+		images.map((image, index) => (
+			<div class:list={['imageHolder', layout]}>
+				<BetterPicture
+					class:list={['image', layout]}
+					name={image.name}
+					alt={image.alt}
+					width={768}
+					height={496}
+					loading="lazy"
+					formats={image.formats}
+				/>
+			</div>
+		))
+	}
+</div>
+
+<style define:vars={{}}>
+.gallery {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+
+	@media (--sm-n-below) {
+		--squircle-radius: 100x;
+		--squircle-smooth: 1;
+
+		mask: paint(squircle);
+		overflow: hidden;
+	}
+
+	@media (--sm) {
+		width: calc(100% - 12x);
+	}
+
+	@media (--xs-n-below) {
+		width: 100%;
+	}
+}
+
+.imageHolder {
+	display: flex;
+	mix-blend-mode: multiply;
+
+	&:nth-child(n+2) {
+		margin-block-start: -16x;
+
+		@media (--md) {
+			margin-block-start: -4x;
+		}
+
+		@media (--sm-n-below) {
+			margin-block-start: 0;
+		}
+	}
+
+	&.ltr {
+		&:nth-child(even) {
+			justify-content: end;
+		}
+
+		&:nth-child(odd) {
+			justify-content: start;
+		}
+	}
+
+	&.rtl {
+		&:nth-child(even) {
+			justify-content: start;
+		}
+
+		&:nth-child(odd) {
+			justify-content: end;
+		}
+	}
+
+	&.rtl,
+	&.ltr {
+		@media (--sm-n-below) {
+			&:nth-child(even) {
+				justify-content: center;
+			}
+
+			&:nth-child(odd) {
+				justify-content: center;
+			}
+		}
+	}
+}
+
+.image {
+	width: 96x;
+	aspect-ratio: 3/2;
+	object-fit: cover;
+
+	--squircle-radius: 112px;
+	--squircle-smooth: 4;
+
+	mask: paint(squircle);
+
+	@media (--xl) {
+		width: 50vw;
+	}
+
+	@media (--lg) {
+		width: 50vw;
+	}
+
+	@media (--md) {
+		width: 50vw;
+		margin: 0 auto;
+	}
+
+	@media (--sm-n-below) {
+		width: 100%;
+		margin: 0 auto;
+		mask: none;
+	}
+
+	@media (--sm) {
+		/* height: 60vw; */
+	}
+
+	@media (--xs-n-below) {
+		/* height: 38x; */
+	}
+}
+</style>

@@ -1,0 +1,94 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import NavigationBar from '#components/NavigationBar.astro';
+import SocialLinks from '#components/SocialLinks.astro';
+import Blob from '#components/Blob.astro';
+import BetterPicture from '#components/BetterPicture.astro';
+import Wrapper from './Wrapper.astro';
+
+
+export interface Props extends HTMLAttributes<'div'> {
+}
+---
+
+<div class="base">
+	<header class:list={['/d:flex']}>
+		<NavigationBar class:list={['/shrink:0', '/z:mountain']} />
+	</header>
+	<main class="main">
+		<slot />
+	</main>
+	<Wrapper
+		class:list={['/pos:relative']}
+		content-class:list={['/flex:column']}
+	>
+		<footer class:list={['footer']}>
+			<div class:list={['divider']} />
+			<SocialLinks class:list={['/shrink:0']} />
+		</footer>
+		<BetterPicture
+			name="Legs"
+			alt="Illustration of legs, wearing socks"
+			width={900}
+			height={368}
+			loading="lazy"
+			formats={['avif', 'webp', 'png']}
+			class:list={[
+				'/pos:absolute', '/r:0', '/b:0',
+				'/ratio:<2.4X1>',
+				'/w:112',
+				'@xl:/w:90',
+				'@lg:/w:80',
+				'@md:/w:60',
+				'@sm-n-below:/pos:relative',
+				'@sm-n-below:/w:full',
+				'@sm-n-below:/r:-20'
+			]}
+		/>
+		<Blob color={'red'} class:list={['/r:80', '/b:0']} />
+		<Blob color={'blue'} class:list={['/r:20', '/b:40']} />
+	</Wrapper>
+</div>
+
+<style lang="postcss">
+.base {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 16x;
+	padding-block-start: 12x;
+	width: 100%;
+
+	@media (--xl-n-below) {
+		gap: 12x;
+	}
+
+	@media (--lg-n-below) {
+		gap: 8x;
+	}
+
+	@media (--md-n-below) {
+		gap: 4x;
+	}
+}
+
+.footer {
+	padding: 4x 4x 20x;
+	position: relative;
+	width: 100%;
+}
+
+.divider {
+	width: 100%;
+	height: 1px;
+	margin: 0 auto;
+	background-color: var(--color-ink-dark);
+	margin-block-end: 20x;
+}
+</style>

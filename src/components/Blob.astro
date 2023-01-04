@@ -1,0 +1,46 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+
+export interface Props extends HTMLAttributes<'div'> {
+	'class:list'?: string[];
+	color: 'red' | 'blue' | 'green' | 'yellow' | 'purple' | 'orange';
+}
+
+const {
+	color,
+	'class:list': classList = [],
+	...attributes
+} = Astro.props;
+
+const normalizedColorMap = {
+	red: '#EB5757',
+	blue: '#2F80ED',
+	green: '#27AE60',
+	yellow: '#F2C94C',
+	purple: '#9B51E0',
+	orange: '#F2994A'
+};
+const normalizedColor = normalizedColorMap[color];
+---
+
+<div
+	class:list={[
+		'blob',
+		...classList
+	]}
+	{...attributes}
+/>
+
+<style define:vars={{ normalizedColor }}>
+.blob {
+	position: absolute;
+	width: 50x;
+	height: 50x;
+	background: var(--normalizedColor);
+	border-radius: 50%;
+	filter: blur(128px);
+	mix-blend-mode: multiply;
+	opacity: 0.2;
+}
+</style>

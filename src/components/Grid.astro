@@ -1,0 +1,43 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+
+export interface Props extends HTMLAttributes<'div'> {
+	'class:list'?: string[];
+	columns?: string;
+	rows?: string;
+	'align-items'?: string;
+	'justify-items'?: string;
+}
+
+const {
+	'class:list': classList = [],
+	'content-class:list': contentClassList = [],
+	columns,
+	rows,
+	'align-items': alignItems,
+	'justify-items': justifyItems,
+	...attributes
+} = Astro.props;
+
+---
+
+<div
+	class:list={[
+		'grid',
+		...classList
+	]}
+	{...attributes}
+>
+	<slot />
+</div>
+
+<style define:vars={{ columns, rows, alignItems, justifyItems }}>
+.grid {
+	display: grid;
+	grid-template-columns: var(--columns, 1fr);
+	grid-template-rows: var(--rows, 1fr);
+	align-items: var(--alignItems, stretch);
+	justify-items: var(--justifyItems, stretch);
+}
+</style>

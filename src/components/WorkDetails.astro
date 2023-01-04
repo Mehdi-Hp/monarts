@@ -1,0 +1,104 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import DotDivider from './DotDivider.astro';
+import Icon from './Icon.astro';
+
+
+export interface Props extends HTMLAttributes<'div'> {
+	'class:list'?: string[];
+	logo: string;
+	logoRatio: string;
+	logoScale?: number;
+	name: string;
+}
+
+const {
+	'class:list': classList = [],
+	logo,
+	logoRatio,
+	logoScale = 1,
+	name,
+	...attributes
+} = Astro.props;
+---
+
+<article
+	class:list={['workDetails', ...classList]}
+	{...attributes}
+>
+	<Icon name={logo} class:list={['logo']} />
+	<DotDivider class:list={[
+		'/h:5', '/w:0.5', '/bgcolor:ink-light',
+		'@sm-n-below:/h:0.5', '@sm-n-below:/w:5'
+	]} />
+	<div class:list={['info']}>
+		<h3 class:list={['/type:mono-header2-normal']}>
+			{ name }
+		</h3>
+		<p class:list={['/type:mono-body-bold:1.5']}>
+			<slot name="description" />
+		</p>
+		<p class:list={['/type:mono-body-bold:1.5']}>
+			<slot name="target" />
+		</p>
+	</div>
+</article>
+
+<style define:vars={{ logoRatio, logoScale }}>
+.workDetails {
+	display: grid;
+	grid-template-columns: 50x 0.5x 70x;
+	justify-items: center;
+	align-items: center;
+	gap: 10x;
+
+	@media (--lg) {
+		grid-template-columns: 30x 0.5x 60x;
+		gap: 5x;
+	}
+
+	@media (--md) {
+		grid-template-columns: 30x 0.5x 1fr;
+		gap: 3x;
+	}
+
+	@media (--md-n-below) {
+		width: 100%;
+	}
+
+	@media (--sm-n-below) {
+		grid-template-columns: auto;
+		grid-template-rows: 25x 0.5x auto;
+		gap: 4x;
+	}
+}
+
+.logo {
+	width: 100%;
+	aspect-ratio: var(--logoRatio);
+	transform: scale(var(--logoScale));
+
+	@media (--sm-n-below) {
+		width: auto;
+		height: 100%;
+	}
+}
+
+.info {
+	display: flex;
+	flex-direction: column;
+	gap: 2x;
+
+	@media (--sm) {
+		padding-inline: 4x;
+	}
+
+	& > h3 {
+		color: var(--color-ink-dim);
+	}
+
+	& > p {
+		color: var(--color-ink-dark);
+	}
+}
+</style>

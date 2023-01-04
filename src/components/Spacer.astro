@@ -1,0 +1,24 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+
+export interface Props extends HTMLAttributes<'div'> {
+	'class:list'?: string[];
+}
+
+const {
+	'class:list': classList = [],
+	...attributes
+} = Astro.props;
+---
+
+<div
+	class:list={[
+		'/w:full',
+		'/h:16',
+		'@sm:/h:8',
+		'@xs-n-below:/h:0',
+		...classList
+	]}
+	{...attributes}
+/>
