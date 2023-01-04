@@ -24,9 +24,10 @@ const {
 
 <article
 	class:list={['workDetails', ...classList]}
+	aria-label={name}
 	{...attributes}
 >
-	<Icon name={logo} class:list={['logo']} />
+	<Icon name={`${logo}-logo`} class:list={['logo']} />
 	<DotDivider class:list={[
 		'/h:5', '/w:0.5', '/bgcolor:ink-light',
 		'@sm-n-below:/h:0.5', '@sm-n-below:/w:5'

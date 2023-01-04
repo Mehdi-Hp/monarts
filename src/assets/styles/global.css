@@ -41,6 +41,7 @@ body {
 	height: 1px;
 	overflow: hidden;
 	position: absolute;
+	inset-block-start: 0;
 	white-space: nowrap;
 	width: 1px;
 }

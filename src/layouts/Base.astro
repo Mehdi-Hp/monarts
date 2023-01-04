@@ -15,14 +15,14 @@ export interface Props extends HTMLAttributes<'div'> {
 	<header class:list={['/d:flex']}>
 		<NavigationBar class:list={['/shrink:0', '/z:mountain']} />
 	</header>
-	<main class="main">
+	<main class="main" aria-labelledby="portfolio">
 		<slot />
 	</main>
 	<Wrapper
 		class:list={['/pos:relative']}
 		content-class:list={['/flex:column']}
 	>
-		<footer class:list={['footer']}>
+		<footer class:list={['footer']} id="socials">
 			<div class:list={['divider']} />
 			<SocialLinks class:list={['/shrink:0']} />
 		</footer>

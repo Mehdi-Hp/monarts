@@ -1,14 +1,11 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import { nanoid } from 'nanoid/non-secure'
 
 
 export interface Props extends HTMLAttributes<'div'> {
 
 }
 const { ...attributes } = Astro.props;
-
-const instanceId = nanoid() + '_social-links';
 ---
 
 <section
@@ -16,9 +13,9 @@ const instanceId = nanoid() + '_social-links';
 		'/flex:column', '/gap:8',
 		attributes['class:list'] || ''
 	]}
-	aria-labelledby={`#${instanceId}`}
+	aria-labelledby="socialLinks"
 >
-	<h3 id={instanceId} sr-only>
+	<h3 id="socialLinks" sr-only>
 		Contact information
 	</h3>
 	<div class:list={['/flex:column/x:start', '/gap:2']}>
