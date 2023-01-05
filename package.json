@@ -12,7 +12,7 @@
 		"@astrojs/netlify": "^1.2.2",
 		"@types/alpinejs": "^3.0.0",
 		"alpinejs": "^3.0.0",
-		"astro": "^1.8.0",
+		"astro": "^1.9.0",
 		"css-paint-polyfill": "^3.4.0",
 		"custom-cursor": "^2.2.3",
 		"motion": "^10.15.3",
@@ -20,7 +20,7 @@
 		"typewriter-effect": "^2.19.0"
 	},
 	"devDependencies": {
-		"@typescript-eslint/parser": "^5.47.1",
+		"@typescript-eslint/parser": "^5.48.0",
 		"@unocss/preset-mini": "^0.48.0",
 		"@unocss/preset-uno": "^0.48.0",
 		"@unocss/reset": "^0.48.0",

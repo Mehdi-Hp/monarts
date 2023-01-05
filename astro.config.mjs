@@ -6,11 +6,9 @@ import { unocssConfig } from './uno.config.js';
 
 
 export default defineConfig({
-	output: 'server',
 	integrations: [
 		unocss(unocssConfig),
 		alpinejs()
 	],
-	vite: {},
-	adapter: netlify()
+	vite: {}
 });
