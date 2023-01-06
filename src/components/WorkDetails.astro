@@ -45,7 +45,9 @@ const {
 	</div>
 </article>
 
-<style define:vars={{ logoRatio, logoScale }}>
+<style lang="postcss" define:vars={{ logoRatio, logoScale }}>
+@import url("../assets/styles/variables/media.css");
+
 .workDetails {
 	display: grid;
 	grid-template-columns: 50x 0.5x 70x;

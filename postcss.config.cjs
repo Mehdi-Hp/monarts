@@ -1,6 +1,7 @@
 module.exports = {
 	plugins: [
-		require('postcss-custom-selectors'),
+		require('postcss-import')({}),
+		require('postcss-custom-selectors')({}),
 		require('postcss-unitlist')({
 			media: true,
 			replace: true,
@@ -17,7 +18,7 @@ module.exports = {
 			preserve: true,
 			stage: 0
 		}),
-		require('postcss-custom-media'),
-		require('autoprefixer')
+		require('autoprefixer')({}),
+		require('postcss-custom-media')({})
 	]
 };
