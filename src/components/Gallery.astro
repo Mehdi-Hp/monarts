@@ -54,11 +54,8 @@ const {
 	width: 100%;
 
 	@media (--sm-n-below) {
-		--squircle-radius: 100x;
-		--squircle-smooth: 1;
-
-		mask: paint(squircle);
 		overflow: hidden;
+		border-radius: 4x;
 	}
 
 	@media (--sm) {
@@ -150,6 +147,7 @@ const {
 		width: 100%;
 		margin: 0 auto;
 		mask: none;
+		border-radius: 0;
 	}
 }
 </style>
