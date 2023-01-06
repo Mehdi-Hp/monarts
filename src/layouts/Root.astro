@@ -20,10 +20,11 @@ import IconsSpirit from '#components/IconsSpirit.astro';
 
 
 <script>
-if (!("paintWorklet" in CSS)) {
-	await import('css-paint-polyfill');
+const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+
+if (isChrome) {
+	CSS.paintWorklet.addModule(
+		`https://www.unpkg.com/css-houdini-squircle/squircle.min.js`
+	);
 }
-CSS.paintWorklet.addModule(
-	`https://www.unpkg.com/css-houdini-squircle/squircle.min.js`
-);
 </script>

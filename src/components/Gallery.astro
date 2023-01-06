@@ -124,11 +124,14 @@ const {
 	width: 96x;
 	aspect-ratio: 3/2;
 	object-fit: cover;
+	border-radius: 8x;
 
-	--squircle-radius: 112px;
-	--squircle-smooth: 4;
+	@supports (mask: paint(squircle)) {
+		--squircle-radius: 112px;
+		--squircle-smooth: 4;
 
-	mask: paint(squircle);
+		mask: paint(squircle);
+	}
 
 	@media (--xl) {
 		width: 50vw;
